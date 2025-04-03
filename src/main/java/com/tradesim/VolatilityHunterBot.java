@@ -50,6 +50,11 @@ public class VolatilityHunterBot implements TradingStrategy {
             bought = engine.execute(symbol, 1, Order.OrderType.BUY);
         }
 
+        //TEST LOGIC FOR WHEN THE MARKET IS CLOSED
+        /*if (!bought && lastBuyPrice == -1) {
+            bought = engine.execute(symbol, 1, Order.OrderType.BUY);
+        }*/
+
         if (bought) {
             lastBuyPriceMap.put(symbol, price);
             peakSinceBuyMap.put(symbol, price);
