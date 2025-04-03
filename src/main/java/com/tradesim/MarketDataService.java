@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 
 public class MarketDataService {
-    private static final String API_KEY = "cvmrdh9r01ql90pvq0ngcvmrdh9r01ql90pvq0o0";
+    private static final String API_KEY = System.getenv("FINNHUB_API_KEY");
     private static final String BASE_URL = "https://finnhub.io/api/v1";
     private final OkHttpClient client;
     private final ObjectMapper mapper;
