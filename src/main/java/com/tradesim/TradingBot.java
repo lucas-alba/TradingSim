@@ -3,6 +3,9 @@ package com.tradesim;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -27,6 +30,8 @@ public class TradingBot {
     public void start() {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(() -> {
+            if (!isMarketOpen()) return;
+
             for (String symbol : watchlist) {
                 try {
                     double price = marketDataService.getCurrentPrice(symbol);
@@ -45,4 +50,13 @@ public class TradingBot {
     public MarketDataService getMarketDataService() {
         return this.marketDataService;
     }
+
+    private boolean isMarketOpen() {
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("America/New_York"));
+        LocalTime currentTime = now.toLocalTime();
+        LocalTime marketOpen = LocalTime.of(9, 45); // 9:45 AM
+        LocalTime marketClose = LocalTime.of(16, 0); // 4:00 PM
+        return !currentTime.isBefore(marketOpen) && !currentTime.isAfter(marketClose);
+    }
+
 }
