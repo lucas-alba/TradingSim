@@ -2,6 +2,7 @@ package com.tradesim.controller;
 
 import com.tradesim.Order;
 import com.tradesim.Portfolio;
+import com.tradesim.PortfolioSnapshot;
 import com.tradesim.TradingBot;
 import org.springframework.web.bind.annotation.*;
 
@@ -56,5 +57,10 @@ public class PortfolioController {
     @GetMapping("/trades")
     public List<Order> getTradeHistory() {
         return tradingBot.getPortfolio().getTradeHistory();
+    }
+
+    @GetMapping("/performance")
+    public List<PortfolioSnapshot> getPerformance() {
+        return tradingBot.getPerformanceHistory();
     }
 }
