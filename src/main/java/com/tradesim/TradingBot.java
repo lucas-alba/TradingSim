@@ -37,7 +37,7 @@ public class TradingBot {
                     double price = marketDataService.getCurrentPrice(symbol);
                     strategy.evaluate(symbol, price, tradeEngine);
                 } catch (Exception e) {
-                    System.err.println("⚠️ Error for " + symbol + ": " + e.getMessage());
+                    System.err.println("Error for " + symbol + ": " + e.getMessage());
                 }
             }
         }, 0, 60, TimeUnit.SECONDS);

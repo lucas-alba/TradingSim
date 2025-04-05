@@ -47,8 +47,8 @@ public class PortfolioController {
         }
 
         double profitLoss = totalValue - 1000.0;
-        if (profitLoss > 0) return "📈 Portfolio is up $" + String.format("%.2f", profitLoss);
-        if (profitLoss < 0) return "📉 Portfolio is down $" + String.format("%.2f", -profitLoss);
+        if (profitLoss > 0) return "Portfolio is up $" + String.format("%.2f", profitLoss);
+        if (profitLoss < 0) return "Portfolio is down $" + String.format("%.2f", -profitLoss);
         return "Portfolio is even";
     }
 

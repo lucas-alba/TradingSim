@@ -11,7 +11,7 @@ import java.util.*;
 public class MarketDataController {
 
     private final MarketDataService marketDataService = new MarketDataService();
-    private final List<String> watchlist = Arrays.asList("AAPL", "MSFT", "TSLA", "AMZN", "GOOG");
+    private final List<String> watchlist = Arrays.asList("AAPL", "MSFT", "TSLA", "AMZN", "GOOG", "NVDA", "META");
 
     @GetMapping("/prices")
     public List<Map<String, Object>> getAllPrices() {
