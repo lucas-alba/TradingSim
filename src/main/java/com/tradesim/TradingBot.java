@@ -29,7 +29,7 @@ public class TradingBot {
     public TradingBot(MarketDataService marketDataService) {
         this.marketDataService = marketDataService;
         this.tradeEngine = new TradeEngine(marketDataService, portfolio);
-        portfolio.processOrder(new Order("AAPL", 1, 200.00, Order.OrderType.BUY));
+        portfolio.processOrder(new Order("AAPL", 1, 176.11, Order.OrderType.BUY));
     }
 
     @PostConstruct
