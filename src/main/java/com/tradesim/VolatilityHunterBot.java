@@ -46,7 +46,7 @@ public class VolatilityHunterBot implements TradingStrategy {
         }
 
         // Momentum-buy logic
-        if (!bought && lastBuyPrice == -1 && price > avg && momentum >= 3) {
+        if (!bought && lastBuyPrice == -1 && price > avg && momentum >= 4) {
             bought = engine.execute(symbol, 1, Order.OrderType.BUY);
         }
 
@@ -67,7 +67,7 @@ public class VolatilityHunterBot implements TradingStrategy {
                 peakSinceBuyMap.put(symbol, price);
             }
 
-            if (price < peakSinceBuy * 0.95) {
+            if (price < peakSinceBuy * 0.985) {
                 boolean sold = engine.execute(symbol, 1, Order.OrderType.SELL);
                 if (sold) {
                     System.out.println("Sold " + symbol + " at $" + price);
@@ -76,7 +76,7 @@ public class VolatilityHunterBot implements TradingStrategy {
                 }
             }
         }
-        if (lastBuyPrice != -1 && price > lastBuyPrice * 1.03 && price < previousPrice) {
+        if (lastBuyPrice != -1 && price > lastBuyPrice * 1.015 && price < previousPrice) {
             boolean sold = engine.execute(symbol, 1, Order.OrderType.SELL);
             if (sold) {
                 System.out.println("🎯 Took profit on " + symbol + " at $" + price);

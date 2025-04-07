@@ -47,7 +47,6 @@ public class TradingBot {
                 }
             }
 
-            // ✅ Create + record performance snapshot
             double portfolioValue = portfolio.getCashBalance();
             for (var entry : portfolio.getHoldings().entrySet()) {
                 String symbol = entry.getKey();
@@ -62,7 +61,7 @@ public class TradingBot {
 
             PortfolioSnapshot snapshot = new PortfolioSnapshot(LocalDateTime.now(), portfolioValue);
             performanceHistory.add(snapshot);
-            saveSnapshotToFile(snapshot); // <-- ✅ This is the missing line!
+            saveSnapshotToFile(snapshot);
 
         }, 0, 60, TimeUnit.SECONDS);
     }
