@@ -6,6 +6,9 @@ import com.tradesim.PortfolioSnapshot;
 import com.tradesim.TradingBot;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.io.IOException;
@@ -61,6 +64,12 @@ public class PortfolioController {
 
     @GetMapping("/performance")
     public List<PortfolioSnapshot> getPerformance() {
-        return tradingBot.getPerformanceHistory();
+        return tradingBot.getPerformanceHistory().stream()
+                .filter(snapshot -> {
+                    ZonedDateTime timestamp = snapshot.getTimestamp().atZone(ZoneId.of("America/New_York"));
+                    LocalTime time = timestamp.toLocalTime();
+                    return !time.isBefore(LocalTime.of(9, 30)) && !time.isAfter(LocalTime.of(16, 0));
+                })
+                .toList();
     }
 }
