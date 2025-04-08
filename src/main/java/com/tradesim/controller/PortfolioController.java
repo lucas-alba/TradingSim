@@ -71,7 +71,7 @@ public class PortfolioController {
                     int dayOfWeek = timestamp.getDayOfWeek().getValue(); // 1 = Monday, 7 = Sunday
 
                     boolean isWeekday = dayOfWeek >= 1 && dayOfWeek <= 5;
-                    boolean isDuringMarketHours = !time.isBefore(LocalTime.of(9, 30)) && !time.isAfter(LocalTime.of(16, 0));
+                    boolean isDuringMarketHours = !time.isBefore(LocalTime.of(13, 30)) && !time.isAfter(LocalTime.of(20, 0));
 
                     return isWeekday && isDuringMarketHours;
                 })
