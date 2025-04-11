@@ -29,7 +29,9 @@ public class TradingBot {
     public TradingBot(MarketDataService marketDataService) {
         this.marketDataService = marketDataService;
         this.tradeEngine = new TradeEngine(marketDataService, portfolio);
-        portfolio.processOrder(new Order("AAPL", 1, 176.11, Order.OrderType.BUY));
+        portfolio.processOrder(new Order("MSFT", 1, 388.45, Order.OrderType.BUY));
+        portfolio.processOrder(new Order("AAPL", 1, 198.15, Order.OrderType.BUY));
+        portfolio.processOrder(new Order("AMZN", 1, 184.87, Order.OrderType.BUY));
     }
 
     @PostConstruct
@@ -55,15 +57,24 @@ public class TradingBot {
                     double price = marketDataService.getCurrentPrice(symbol);
                     portfolioValue += price * quantity;
                 } catch (Exception e) {
-                    // skip errors silently
+                    System.err.println("Failed to fetch price for " + symbol + ": " + e.getMessage());
                 }
             }
 
             PortfolioSnapshot snapshot = new PortfolioSnapshot(LocalDateTime.now(), portfolioValue);
-            performanceHistory.add(snapshot);
-            saveSnapshotToFile(snapshot);
+            double previousValue = performanceHistory.isEmpty() ? 0 : performanceHistory.get(performanceHistory.size() - 1).getPortfolioValue();
 
-        }, 0, 60, TimeUnit.SECONDS);
+            boolean isValid = previousValue == 0 ||
+                    (portfolioValue > previousValue * 0.7 && portfolioValue < previousValue * 1.3);
+
+            if (isValid) {
+                performanceHistory.add(snapshot);
+                saveSnapshotToFile(snapshot);
+            } else {
+                System.out.println("Skipped suspicious snapshot: $" + portfolioValue);
+            }
+
+        }, 0, 60, TimeUnit.SECONDS); // Every 60 seconds
     }
 
 
