@@ -4,11 +4,13 @@ This project simulates real-time stock trading using live market data (finnhub) 
 ## How It's Made :
 - Backend
     - Built in Java using Spring Boot
+    - Trading strategies such as momentum and mean revesion
     - Exposes Rest APIs endpoints for:
       - Portfolio summary
       - Trade history
       - Performance
-    - Trading strategies such as momentum and mean revesion
+      
 - Frontend
     - Developed in React with Tailwind CSS
-    - All frontend code is referenced https://github.com/lucas-alba/my-portfolio
+    - All frontend code is referenced
+        - https://github.com/lucas-alba/my-portfolio
